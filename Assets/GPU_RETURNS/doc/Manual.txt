@@ -1,0 +1,64 @@
+★ BGM,SE 再生テスト
+
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+
+２．audioDemoのシーンを開く
+
+　　Assets-GPU_RETURNS-Scenes-audioDemo
+
+　　※InputManagerを使っているので、Active Input Handing の設定を Both にしておく
+
+　　ProjectSettings-Player-OtherSettings-Configuration-Active Input Handling
+ 
+３．再生したBGM, SEが再生されるか確認
+
+　　※ 音が鳴らない場合は、Gameビューがミュートになっていないか確認してください。
+
+★ BgmManager, SeManagerの使い方
+ 
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+ 
+２．再生したい音声データを、以下のフォルダ内に保存する
+    BGM : Assets - GPU_RETURNS - Resources - Audio - BGM
+    SE  : Assets - GPU_RETURNS - Resources - Audio - SE
+ 
+３．ゲーム中で一番初めに呼ばれるシーン（タイトルなど）にBgmManager, SeManagerのプレハブを配置する
+ 
+４．BGMを再生したいタイミングで、BGM再生命令を実行する
+　　BgmManager.Instance.Play("BGM音声データのファイル名（拡張子無し）");
+ 
+５．BGMを停止したいタイミングで、BGM停止命令を実行する
+    BgmManager.Instance.Stop();
+ 
+６．SEを再生したいタイミングで、SE再生命令を実行する
+　　SeManager.Instance.Play("SE音声データのファイル名（拡張子無し）");
+ 
+７．SEを停止したいタイミングで、SE停止命令を実行する
+　　SeManager.Instance.StopImmediately("SE音声データのファイル名（拡張子無し）");
+
+　　※ 引数を省略した場合は、すべてのSEを停止する
+
+★ FadeCanvasテスト
+
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+
+２．FadeDemoのシーンを開く
+　　Assets-GPU_RETURNS-Scenes-FadeDemo
+　　※InputManagerを使っているので、Active Input Handing の設定を Both にしておく
+　　ProjectSettings-Player-OtherSettings-Configuration-Active Input Handling
+ 
+３．UI-ImageFade, UI-TextFade の実装を確認
+　　※ EnterキーでフェードインアウトしながらaudioDemoへ遷移する
+　　※ BuildProfilesでSceneListにFadeDemoと
+
+★ FadeCanvasの使い方
+
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+ 
+２．ゲーム中で一番初めに呼ばれるシーン（タイトルなど）にFadeCanvasのプレハブを配置する
+
+３．シーン切り替えをじっっこうしたいタイミングで、以下の命令を実行する
+　　FadeManager.Instance.LoadScene("遷移先のシーン名");
+　　※ 第２引数をつけることで、フェード時間を設定できる（規定値は１秒）
+　　FadeManager.Instance.LoadScene("遷移先のシーン名",フェード時間(秒));
+
