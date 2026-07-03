@@ -1,0 +1,24 @@
+★ FadeCanvasテスト
+
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+
+２．FadeDemoのシーンを開く
+　　Assets-GPU_RETURNS-Scenes-FadeDemo
+　　※InputManagerを使っているので、Active Input Handing の設定を Both にしておく
+　　ProjectSettings-Player-OtherSettings-Configuration-Active Input Handling
+ 
+３．UI-ImageFade, UI-TextFade の実装を確認
+　　※ EnterキーでフェードインアウトしながらaudioDemoへ遷移する
+　　※ BuildProfilesでSceneListにFadeDemoと
+
+★ FadeCanvasの使い方
+
+１．【GPU_RETURNS.unitypackage】を任意のUnityプロジェクトにインポート
+ 
+２．ゲーム中で一番初めに呼ばれるシーン（タイトルなど）にFadeCanvasのプレハブを配置する
+
+３．シーン切り替えをじっっこうしたいタイミングで、以下の命令を実行する
+　　FadeManager.Instance.LoadScene("遷移先のシーン名");
+　　※ 第２引数をつけることで、フェード時間を設定できる（規定値は１秒）
+　　FadeManager.Instance.LoadScene("遷移先のシーン名",フェード時間(秒));
+
