@@ -7,7 +7,9 @@ public class AnimDemo : MonoBehaviour
     float moveSpeed;                // 移動速度
 	Transform visual;				// 子オブジェクトのVisualを保存
 	Vector3 startScale;				// 最初のスケール値
-	InputAction moveAction;			// アクションマップ【Move】を取得
+    Animator plAnimator;			// アニメーターコンポーネント取得
+
+    InputAction moveAction;			// アクションマップ【Move】を取得
 	InputAction jumpAction;         // アクションマップ【Jump】を取得
 
 	void Start()
@@ -19,15 +21,20 @@ public class AnimDemo : MonoBehaviour
 		moveAction = InputSystem.actions.FindAction("Move");
 		jumpAction = InputSystem.actions.FindAction("Jump");
 
-		// Visualの最初のスケール値を保存
-		visual = transform.GetChild(0);
-		startScale = visual.localScale;
-	}
+		// Visualの各種パラメータを取得
+		visual = transform.GetChild(0);					// Visualのトランスフォームコンポーネント取得
+		startScale = visual.localScale;					// Visualのスケール値取得
+        plAnimator = visual.GetComponent<Animator>();	// Visualのアニメーターコンポーネント取得
+
+    }
 
     void Update()
     {
-		// 左右移動
-		Vector3 vel = rb.linearVelocity;
+        // 左右移動中かどうか
+        bool isHorizontalMove = false;
+
+        // 左右移動
+        Vector3 vel = rb.linearVelocity;
 		vel.x = moveAction.ReadValue<Vector2>().x * moveSpeed;
 		rb.linearVelocity = vel;
 
@@ -36,15 +43,20 @@ public class AnimDemo : MonoBehaviour
 		if(vel.x < 0f)
 		{
 			scale.x = -startScale.x;
-		}
-		else if(vel.x > 0f)
+            isHorizontalMove = true;
+        }
+        else if(vel.x > 0f)
 		{
 			scale.x = startScale.x;
-		}
-		visual.localScale = scale;
+            isHorizontalMove = true;
+        }
+        visual.localScale = scale;
 
-		// ジャンプ処理
-		if (jumpAction.WasPerformedThisFrame())
+        // isRunningのパラメータを左右移動と静止時で切り替える
+        plAnimator.SetBool("isRunning", isHorizontalMove);
+
+        // ジャンプ処理
+        if (jumpAction.WasPerformedThisFrame())
 		{
 			rb.AddForce(Vector2.up * 500);
 		}
