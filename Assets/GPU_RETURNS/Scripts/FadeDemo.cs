@@ -1,16 +1,19 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class FadeDemo : MonoBehaviour
 {
+	InputAction buttonSTART;            // アクションマップ【F310_START】を取得
+
+
     void Start()
     {
-        
+        buttonSTART = InputSystem.actions.FindAction("F310_START");
     }
 
     void Update()
     {
-		if(Input.GetKeyDown(KeyCode.Return))
+		if(buttonSTART.WasPressedThisFrame())
 		{
 			FadeManager.Instance.LoadScene("audioDemo");
 		}

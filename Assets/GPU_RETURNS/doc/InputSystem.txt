@@ -1,0 +1,54 @@
+アクションマップを利用したInputSystemの利用方法
+
+１．コードの先頭に以下の命令を追加して、InputSystemを利用可能にする
+　　using UnityEngine.InputSystem;
+
+２．アクションを保存するメンバ変数を用意する
+    InputAction stickL;                 // アクションマップ【F310_LStick】を取得
+	InputAction buttonA;				// アクションマップ【F310_A】を取得
+
+３．アクションマップファイルから（InputSystem_Actions）アクションを取得して変数に保存
+	void Start()
+    {
+        // アクションマップを取得
+        stickL = InputSystem.actions.FindAction("F310_LStick");
+        buttonA = InputSystem.actions.FindAction("F310_A");	
+	}
+	
+４．アクションを利用して入力制御を行う
+	void Update()
+    {
+		// Stickの入力情報
+		if (stickL.ReadValue<Vector2>().magnitude != 0)
+		{
+			Debug.Log("左Stick = " + stickL.ReadValue<Vector2>().ToString());
+		}
+        if (buttonA.IsPressed())
+        {
+            Debug.Log("Aボタン(Zキー)が押されている");
+        }
+		
+	}
+
+※ GPU_RETURNSシステムでは、ロジクールのゲームパッドF310とキーボードが連動するアクションが用意されている。
+
+ゲームパッドのボタンとキーボードの対応表
+アクション名	ゲームパッド			キーボード				用途
+F310_LStick		左スティック　　		↑ ↓ ← → W A S D　	移動
+F310_RStick		右スティック　　		
+F310_A			Aボタン（下ボタン）		Z　　　　　　			決定/ジャンプ
+F310_B			Bボタン（右ボタン）		C　　　　　　			キャンセル／戻る
+F310_X			Xボタン（左ボタン）		X　　　　　　			攻撃
+F310_Y			Yボタン（上ボタン）		V　　　　　　			インタラクト
+F310_LB		 	Lボタン					Q
+F310_RB		 	Rボタン					E
+F310_LT		  	Lトリガー				F						
+F310_RT		 	Rトリガー				R						
+F310_UP			十字キー上				1
+F310_DOWN		十字キー下				2
+F310_LEFT		十字キー左				3
+F310_RIGHT		十字キー右				4
+F310_START　　　STARTボタン				Enter
+F310_BACK　　　	BACKボタン				Esc
+F310_LStickPress	左スティック押し込み	Left Shift
+F310_RStickPress	右スティック押し込み	Right Shift

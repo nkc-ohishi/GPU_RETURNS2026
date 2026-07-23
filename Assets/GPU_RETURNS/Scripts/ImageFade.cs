@@ -3,6 +3,7 @@
 // 内容　　：UI-Image オブジェクトをフェードさせる（速度調節可）
 //---------------------------------------------------------------------------------------
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ImageFade : MonoBehaviour
@@ -15,10 +16,13 @@ public class ImageFade : MonoBehaviour
 	float time;                     // 時間計測用変数
 	bool speedUpFlg;                // スピードアップフラグ
 
+	InputAction buttonA;                // アクションマップ【F310_A】を取得
+
 	void Start()
 	{
 		image = gameObject.GetComponent<Image>(); //　Textコンポーネントを取得
 		speed = START_SPEED;                    // スピードの初期値設定
+		buttonA = InputSystem.actions.FindAction("F310_A");
 		speedUpFlg = false;                     // スピードアップフラグOFF
 	}
 
@@ -27,15 +31,15 @@ public class ImageFade : MonoBehaviour
 		//オブジェクトのAlpha値を更新
 		image.color = GetAlphaColor(image.color);
 
-		// Zキーが押された後は点滅速度を赤い彗星にする
-		if (Input.GetKeyDown(KeyCode.Z))
+		// Aボタンが押された後は点滅速度を赤い彗星にする
+		if (buttonA.WasPressedThisFrame())
 		{
 			speedUpFlg = true;
 			speed *= 3f;
 			time = 0f;
 		}
 
-		// Zキーが押されてからSPEEDUP_TIME秒たったら点滅速度を戻す
+		// Aボタンが押されてからSPEEDUP_TIME秒たったら点滅速度を戻す
 		if (speedUpFlg && (time / speed) >= SPEEDUP_TIME)
 		{
 			speedUpFlg = false;

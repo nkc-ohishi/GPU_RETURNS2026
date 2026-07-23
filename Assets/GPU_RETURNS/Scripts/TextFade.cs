@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class TextFade : MonoBehaviour
@@ -17,11 +18,15 @@ public class TextFade : MonoBehaviour
 	float time;                     // 時間計測用変数
 	bool speedUpFlg;                // スピードアップフラグ
 
+	InputAction buttonX;                // アクションマップ【F310_X】を取得
+
 	void Start()
 	{
 		text = gameObject.GetComponent<Text>(); //　Textコンポーネントを取得
 		speed = START_SPEED;                    // スピードの初期値設定
 		speedUpFlg = false;						// スピードアップフラグOFF
+
+		buttonX = InputSystem.actions.FindAction("F310_X");
 	}
 
 	void Update()
@@ -29,15 +34,15 @@ public class TextFade : MonoBehaviour
 		//オブジェクトのAlpha値を更新
 		text.color = GetAlphaColor(text.color);
 
-		// Xキーが押された後は点滅速度を赤い彗星にする
-		if(Input.GetKeyDown(KeyCode.X))
+		// Xボタンが押された後は点滅速度を赤い彗星にする
+		if(buttonX.WasPressedThisFrame())
         {
 			speedUpFlg = true;
 			speed *= 3f;
 			time = 0f;
 		}
 
-		// Xキーが押されてからSPEEDUP_TIME秒たったら点滅速度を戻す
+		// Xボタンが押されてからSPEEDUP_TIME秒たったら点滅速度を戻す
 		if (speedUpFlg && (time / speed) >= SPEEDUP_TIME )
         {
 			speedUpFlg = false;
