@@ -10,10 +10,10 @@ public class AnimDemo : MonoBehaviour
 	Animator plAnimator;				// アニメーターコンポーネント取得
 	CapsuleCollider2D col;				// カプセルコライダー2Dコンポーネント取得
 
-	InputAction moveAction;				// アクションマップ【Move】を取得
-	InputAction jumpAction;				// アクションマップ【Jump】を取得
+	InputAction stickL;					// アクションマップ【F310_LStick】を取得
+    InputAction buttonA;				// アクションマップ【F310_A】を取得
 
-	bool isGrounded = true;				// 地面に接地しているか
+    bool isGrounded = true;				// 地面に接地しているか
 	float groundCheckDistance = 0.1f;	// 地面チェックの距離
 
 	void Start()
@@ -22,9 +22,9 @@ public class AnimDemo : MonoBehaviour
 		col = GetComponent<CapsuleCollider2D>();// カプセルコライダー2Dコンポーネントを取得
 		moveSpeed = 3.0f;                       // 移動速度
 
-		// アクションマップを取得
-		moveAction = InputSystem.actions.FindAction("F310_LStick");
-		jumpAction = InputSystem.actions.FindAction("Jump");
+        // アクションマップを取得
+        stickL = InputSystem.actions.FindAction("F310_LStick");
+        buttonA = InputSystem.actions.FindAction("F310_A");
 
 		// Visualの各種パラメータを取得
 		visual = transform.GetChild(0);					// Visualのトランスフォームコンポーネント取得
@@ -48,7 +48,7 @@ public class AnimDemo : MonoBehaviour
 
 		// 左右移動
 		Vector3 vel = rb.linearVelocity;
-		vel.x = moveAction.ReadValue<Vector2>().x * moveSpeed;
+		vel.x = stickL.ReadValue<Vector2>().x * moveSpeed;
 		rb.linearVelocity = vel;
 
 		// 画像左右反転
@@ -93,7 +93,7 @@ public class AnimDemo : MonoBehaviour
 		}
 
 		// ジャンプ処理
-		if (jumpAction.WasPerformedThisFrame() && isGrounded)
+		if (buttonA.WasPerformedThisFrame() && isGrounded)
 		{
 			// 上方向に力を加える
 			rb.AddForce(Vector2.up * 700);
