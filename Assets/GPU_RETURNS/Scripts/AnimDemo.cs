@@ -23,7 +23,7 @@ public class AnimDemo : MonoBehaviour
 		moveSpeed = 3.0f;                       // 移動速度
 
 		// アクションマップを取得
-		moveAction = InputSystem.actions.FindAction("Move");
+		moveAction = InputSystem.actions.FindAction("F310_LStick");
 		jumpAction = InputSystem.actions.FindAction("Jump");
 
 		// Visualの各種パラメータを取得
