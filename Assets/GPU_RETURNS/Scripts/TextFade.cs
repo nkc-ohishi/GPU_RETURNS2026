@@ -2,8 +2,6 @@
 // ファイル：TextFade.cs
 // 内容　　：UI-Text オブジェクトをフェードさせる（速度調節可）
 //---------------------------------------------------------------------------------------
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;

@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GPU_RETURNS/Scenes/InputSystemDemo.unity
     guid: a41ad2a46c8f6974b96271a4eef27710
+  - enabled: 1
+    path: Assets/Scenes/TitleSceneTemplate.unity
+    guid: dc11a65720264994fa08b4e6660de704
+  - enabled: 1
+    path: Assets/Scenes/GameSceneTemplate.unity
+    guid: 020d67d1ed1ebd64d9ba157756bc0532
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
